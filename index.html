@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日文學習教材庫 | Japanese Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap');
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background-color: #f2ede4; 
+            color: #3d3d3d;
+        }
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(93, 64, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="max-w-4xl w-full text-center mb-16">
+        <div class="inline-block p-4 bg-[#5d4037] rounded-3xl shadow-xl mb-6">
+            <i data-lucide="book-marked" class="text-[#f2ede4] w-10 h-10"></i>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-[#5d4037] tracking-tight mb-4">
+            日文學習教材庫
+        </h1>
+        <p class="text-lg text-[#8b5e3c] font-medium tracking-widest uppercase">
+            Japanese Learning Resource Hub
+        </p>
+        <div class="h-1 w-24 bg-[#d2b48c] mx-auto mt-6 rounded-full"></div>
+    </div>
+
+    <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <a href="N1 Particle Analysis Textbook.html" class="group">
+            <div class="card-hover bg-white p-10 rounded-[2.5rem] border border-[#d2b48c]/30 flex flex-col items-center text-center h-full">
+                <div class="w-20 h-20 bg-[#e8dec9] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#5d4037] transition-colors duration-500">
+                    <i data-lucide="layers" class="text-[#8b5e3c] group-hover:text-white w-10 h-10"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-[#5d4037] mb-3">N1 助詞辨析教材</h2>
+                <p class="text-[#8b5e3c] mb-6 leading-relaxed">
+                    深度解析 N1 核心助詞的邏輯差異，包含「は/が」、「に/で」等精確辨析。
+                </p>
+                <span class="text-sm font-black uppercase tracking-widest text-[#d2b48c] group-hover:text-[#5d4037] flex items-center gap-2">
+                    進入教材 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </span>
+            </div>
+        </a>
+
+        <a href="BASIC PHONETIC DEFINITION.html" class="group">
+            <div class="card-hover bg-white p-10 rounded-[2.5rem] border border-[#ffdeeb] flex flex-col items-center text-center h-full">
+                <div class="w-20 h-20 bg-[#fff5f7] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#ff4d94] transition-colors duration-500">
+                    <i data-lucide="presentation" class="text-[#ff4d94] group-hover:text-white w-10 h-10"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-[#4a4a4a] mb-3">認識濁音與半濁音</h2>
+                <p class="text-slate-500 mb-6 leading-relaxed">
+                    商務演示風格簡報。解析連濁規則、萊曼定律以及發音的物理邏輯。
+                </p>
+                <span class="text-sm font-black uppercase tracking-widest text-pink-300 group-hover:text-[#ff4d94] flex items-center gap-2">
+                    播放簡報 <i data-lucide="play-circle" class="w-4 h-4"></i>
+                </span>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="mt-20 text-center opacity-40">
+        <p class="text-xs font-bold tracking-[0.3em] text-[#5d4037] uppercase">
+            Curated by Jewel Gospel ‧ 2026
+        </p>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
