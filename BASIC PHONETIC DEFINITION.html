@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>認識濁音與半濁音</title>
+    <title>認識濁音與半濁音 | 響應式簡報版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -15,12 +15,14 @@
             font-family: 'Noto Sans TC', sans-serif; 
             background-color: #fdf2f5; 
             color: #333;
+            /* 為了手機版體驗，在內容超出時允許捲動 */
             overflow-y: auto;
             overflow-x: hidden;
         }
         .slide-container {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        /* 定製化滑桿 */
         input[type=range] {
             -webkit-appearance: none;
             appearance: none; 
@@ -48,6 +50,7 @@
             border: 2px solid white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        /* 淡入動畫 */
         .fade-enter {
             animation: fadeIn 0.5s ease-out forwards;
         }
@@ -57,7 +60,7 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen py-8">
+<body class="flex flex-col items-center justify-center min-h-screen py-4 md:py-8">
     <div id="root" class="w-full max-w-6xl px-4"></div>
 
     <script type="text/babel">
@@ -71,29 +74,29 @@
                     title: "基礎定義：點點與圓圈",
                     subtitle: "BASIC PHONETIC DEFINITION",
                     content: (
-                        <div className="grid grid-cols-2 gap-12 items-center h-full">
-                            <div className="space-y-6 text-left">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center h-full">
+                            <div className="space-y-4 md:space-y-6 text-left">
                                 <div className="inline-block px-4 py-1 bg-pink-100 text-[#ff4d94] text-sm font-bold rounded-full mb-2">CHAPTER 01</div>
-                                <h3 className="text-4xl font-black text-slate-800 leading-tight">
+                                <h3 className="text-3xl md:text-4xl font-black text-slate-800 leading-tight">
                                     清音變化的<br/><span className="text-[#ff4d94]">兩大基礎標記</span>
                                 </h3>
-                                <p className="text-lg text-slate-500 leading-relaxed">
+                                <p className="text-base md:text-lg text-slate-500 leading-relaxed">
                                     日文中並非所有假名都能變音。濁點與半濁點是決定語義與發音質感的關鍵。
                                 </p>
                             </div>
-                            <div className="space-y-4">
-                                <div className="p-8 bg-white rounded-3xl border border-pink-100 shadow-sm flex items-center gap-6">
-                                    <div className="text-6xl font-black text-[#ff4d94]">＂</div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+                                <div className="p-6 md:p-8 bg-white rounded-3xl border border-pink-100 shadow-sm flex items-center gap-6">
+                                    <div className="text-5xl md:text-6xl font-black text-[#ff4d94]">＂</div>
                                     <div className="text-left">
-                                        <h4 className="text-xl font-bold">濁音 (Dakuon)</h4>
-                                        <p className="text-slate-500 mt-1">適用於：か、さ、た、は 行</p>
+                                        <h4 className="text-lg md:text-xl font-bold">濁音 (Dakuon)</h4>
+                                        <p className="text-sm md:text-base text-slate-500 mt-1">適用於：か、さ、た、は 行</p>
                                     </div>
                                 </div>
-                                <div className="p-8 bg-white rounded-3xl border border-pink-100 shadow-sm flex items-center gap-6">
-                                    <div className="text-6xl font-black text-[#ff1a75]">ﾟ</div>
+                                <div className="p-6 md:p-8 bg-white rounded-3xl border border-pink-100 shadow-sm flex items-center gap-6">
+                                    <div className="text-5xl md:text-6xl font-black text-[#ff1a75]">ﾟ</div>
                                     <div className="text-left">
-                                        <h4 className="text-xl font-bold">半濁音 (Handakuon)</h4>
-                                        <p className="text-slate-500 mt-1">適用於：僅限「は」行</p>
+                                        <h4 className="text-lg md:text-xl font-bold">半濁音 (Handakuon)</h4>
+                                        <p className="text-sm md:text-base text-slate-500 mt-1">適用於：僅限「は」行</p>
                                     </div>
                                 </div>
                             </div>
@@ -105,34 +108,28 @@
                     subtitle: "PHONETIC MECHANISM",
                     content: (
                         <div className="h-full flex flex-col justify-center">
-                            <div className="text-center mb-8">
-                                <h3 className="text-3xl font-black text-slate-800 italic">為什麼我們需要變音？</h3>
+                            <div className="text-center mb-8 md:mb-12">
+                                <h3 className="text-2xl md:text-3xl font-black text-slate-800 italic underline decoration-pink-300">為什麼我們需要變音？</h3>
                                 <p className="text-slate-500 mt-2 italic">從聲音的物理特性來理解</p>
                             </div>
-                            <div className="grid grid-cols-2 gap-8">
-                                <div className="bg-[#fff5f7] p-8 rounded-[2rem] border border-pink-100 flex flex-col items-center">
-                                    <div className="w-32 h-32 bg-white rounded-2xl shadow-inner mb-4 flex items-center justify-center overflow-hidden">
-                                        <img 
-                                            src="https://placehold.co/400x400/ff4d94/white?text=Vibration" 
-                                            className="w-full h-full object-cover" 
-                                            alt="發音震動示意圖"
-                                            onError={(e) => { e.target.src='https://placehold.co/400x400?text=Image+Error' }}
-                                        />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                                <div className="bg-[#fff5f7] p-6 md:p-10 rounded-[2rem] border border-pink-100 text-center relative overflow-hidden group">
+                                    <div className="relative z-10">
+                                        <i data-lucide="activity" className="mx-auto w-10 h-10 md:w-12 md:h-12 text-[#ff4d94] mb-4"></i>
+                                        <h4 className="text-xl md:text-2xl font-bold text-[#ff1a75] mb-2 md:mb-4">聲帶震動 (Vibration)</h4>
+                                        <p className="text-sm md:text-lg text-slate-600">
+                                            濁音代表在發音時聲帶持續震動，增加聲音的深度與能量。
+                                        </p>
                                     </div>
-                                    <h4 className="text-xl font-bold text-[#ff1a75] mb-2">聲帶震動</h4>
-                                    <p className="text-sm text-slate-600">濁音代表在發音時聲帶持續震動，增加聲音能量。</p>
                                 </div>
-                                <div className="bg-[#fff5f7] p-8 rounded-[2rem] border border-pink-100 flex flex-col items-center">
-                                    <div className="w-32 h-32 bg-white rounded-2xl shadow-inner mb-4 flex items-center justify-center overflow-hidden">
-                                        <img 
-                                            src="https://placehold.co/400x400/ff1a75/white?text=Explosion" 
-                                            className="w-full h-full object-cover" 
-                                            alt="半濁音爆破示意圖"
-                                            onError={(e) => { e.target.src='https://placehold.co/400x400?text=Image+Error' }}
-                                        />
+                                <div className="bg-[#fff5f7] p-6 md:p-10 rounded-[2rem] border border-pink-100 text-center relative overflow-hidden group">
+                                    <div className="relative z-10">
+                                        <i data-lucide="zap" className="mx-auto w-10 h-10 md:w-12 md:h-12 text-[#ff1a75] mb-4"></i>
+                                        <h4 className="text-xl md:text-2xl font-bold text-[#ff1a75] mb-2 md:mb-4">空氣爆破 (Plosive)</h4>
+                                        <p className="text-sm md:text-lg text-slate-600">
+                                            半濁音代表氣流被壓縮後瞬間釋放，具有強烈的節奏感與可愛感。
+                                        </p>
                                     </div>
-                                    <h4 className="text-xl font-bold text-[#ff1a75] mb-2">空氣爆破</h4>
-                                    <p className="text-sm text-slate-600">半濁音代表氣流被壓縮後瞬間釋放，具有強烈節奏。</p>
                                 </div>
                             </div>
                         </div>
@@ -142,34 +139,34 @@
                     title: "連濁：兩字之間的膠水",
                     subtitle: "RENDAKU PHENOMENON",
                     content: (
-                        <div className="grid grid-cols-5 gap-8 items-center h-full">
-                            <div className="col-span-2 space-y-6 text-left">
-                                <h3 className="text-4xl font-black text-slate-800">
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center h-full">
+                            <div className="lg:col-span-2 space-y-4 md:space-y-6 text-left">
+                                <h3 className="text-3xl md:text-4xl font-black text-slate-800 leading-tight">
                                     <span className="text-[#ff4d94]">連濁</span> 是為了<br/>極致的發音省力
                                 </h3>
-                                <p className="text-lg text-slate-600">
+                                <p className="text-base md:text-lg text-slate-600">
                                     當兩個獨立的字組合成複合詞時，接合處的清音會為了「順著聲帶慣性」而變濁。
                                 </p>
-                                <div className="p-4 bg-pink-50 border-l-4 border-[#ff4d94] text-[#ff4d94] font-bold">
+                                <div className="p-4 bg-pink-50 border-l-4 border-[#ff4d94] text-[#ff4d94] font-bold text-sm md:text-base">
                                     公式：A + B(清音) = AB(濁音)
                                 </div>
                             </div>
-                            <div className="col-span-3 bg-white p-12 rounded-[3rem] shadow-xl border border-pink-100 text-center">
-                                <div className="flex items-center justify-around mb-8">
-                                    <div className="text-center">
-                                        <p className="text-sm text-slate-400 mb-1">WORD 1</p>
-                                        <p className="text-4xl font-light">鼻 (はな)</p>
+                            <div className="lg:col-span-3 bg-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] shadow-xl border border-pink-100 text-center">
+                                <div className="flex flex-row items-center justify-around mb-6 md:mb-8">
+                                    <div>
+                                        <p className="text-[10px] md:text-sm text-slate-400 mb-1">WORD 1</p>
+                                        <p className="text-2xl md:text-4xl font-light">鼻 (はな)</p>
                                     </div>
-                                    <div className="text-4xl text-pink-200">+</div>
-                                    <div className="text-center">
-                                        <p className="text-sm text-slate-400 mb-1">WORD 2</p>
-                                        <p className="text-4xl font-light text-pink-500 underline">血 (ち)</p>
+                                    <div className="text-2xl md:text-4xl text-pink-200">+</div>
+                                    <div>
+                                        <p className="text-[10px] md:text-sm text-slate-400 mb-1">WORD 2</p>
+                                        <p className="text-2xl md:text-4xl font-light text-pink-500 underline">血 (ち)</p>
                                     </div>
                                 </div>
-                                <div className="h-px bg-slate-100 mb-8 w-full"></div>
+                                <div className="h-px bg-slate-100 mb-6 md:mb-8 w-full"></div>
                                 <div className="space-y-2">
-                                    <p className="text-xs font-mono tracking-widest text-slate-400">OPTIMIZED RESULT</p>
-                                    <p className="text-7xl font-black text-[#ff1a75] tracking-tighter">鼻血 (はなぢ)</p>
+                                    <p className="text-[10px] font-mono tracking-widest text-slate-400">OPTIMIZED RESULT</p>
+                                    <p className="text-5xl md:text-7xl font-black text-[#ff1a75] tracking-tighter">鼻血 (はなぢ)</p>
                                 </div>
                             </div>
                         </div>
@@ -180,26 +177,25 @@
                     subtitle: "LYMAN'S LAW RESTRICTION",
                     content: (
                         <div className="h-full flex flex-col justify-center">
-                            <div className="bg-slate-900 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                                <div className="flex gap-12 items-start relative z-10 text-left">
+                            <div className="bg-slate-900 text-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl relative overflow-hidden">
+                                <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center md:items-start relative z-10 text-left">
                                     <div className="flex-shrink-0">
-                                        <div className="w-20 h-20 bg-[#ff4d94] rounded-2xl flex items-center justify-center text-3xl font-black text-white">!</div>
+                                        <div className="w-16 h-16 md:w-20 md:h-20 bg-[#ff4d94] rounded-2xl flex items-center justify-center text-3xl font-black text-white">!</div>
                                     </div>
-                                    <div className="space-y-6">
-                                        <h3 className="text-4xl font-black italic">萊曼定律：拒絕過度濁化</h3>
-                                        <p className="text-xl text-slate-300 leading-relaxed max-w-2xl">
+                                    <div className="space-y-4 md:space-y-6">
+                                        <h3 className="text-2xl md:text-4xl font-black italic">萊曼定律：拒絕過度濁化</h3>
+                                        <p className="text-base md:text-xl text-slate-300 leading-relaxed max-w-2xl">
                                             如果第二個字內部 <span className="text-[#ff4d94] font-bold">本身已經含有濁音</span>，則該字開頭不再發生連濁。這是為了防止語意被過度「泥濘化」。
                                         </p>
-                                        <div className="flex items-center gap-8 bg-white/10 p-6 rounded-2xl border border-white/20">
+                                        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 bg-white/10 p-4 md:p-6 rounded-2xl border border-white/20 w-full">
                                             <div className="flex-1 text-center">
-                                                <p className="text-xs opacity-50 mb-1">山 + 火事 (Kaji)</p>
-                                                <p className="text-3xl font-bold">山火事 (やまかじ)</p>
+                                                <p className="text-[10px] opacity-50 mb-1 uppercase tracking-tighter">山 + 火事 (Kaji)</p>
+                                                <p className="text-xl md:text-3xl font-bold">山火事 (やまかじ)</p>
                                             </div>
-                                            <div className="w-px h-12 bg-white/20"></div>
+                                            <div className="hidden sm:block w-px h-12 bg-white/20"></div>
                                             <div className="flex-1 text-center text-[#ff4d94]">
-                                                <p className="text-xs opacity-50 mb-1">STATUS</p>
-                                                <p className="text-xl font-bold uppercase tracking-widest italic">Blocked</p>
+                                                <p className="text-[10px] opacity-50 mb-1 uppercase">Status</p>
+                                                <p className="text-lg md:text-xl font-bold uppercase tracking-widest italic">Blocked</p>
                                             </div>
                                         </div>
                                     </div>
@@ -217,83 +213,83 @@
             }, [currentSlide]);
 
             return (
-                <div className="flex flex-col items-center pb-8">
-                    {/* Top Navigation Bar */}
-                    <div className="w-full flex justify-between items-center mb-6 px-6">
+                <div className="flex flex-col items-center">
+                    {/* Navigation Top - 響應式佈局 */}
+                    <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-6 px-4 gap-4">
                         <div className="flex items-center gap-3">
-                            {/* 已換回原本的樣式：移除 <img> 並保留 <i> */}
-                            <div className="w-10 h-10 bg-[#ff4d94] rounded flex items-center justify-center text-white">
-                                <i data-lucide="presentation" className="w-6 h-6"></i>
+                            <div className="w-8 h-8 bg-[#ff4d94] rounded flex items-center justify-center text-white shrink-0">
+                                <i data-lucide="presentation" className="w-5 h-5"></i>
                             </div>
                             <span className="text-base font-bold text-slate-500 tracking-wide">認識濁音與半濁音</span>
                         </div>
-                        <div className="flex items-center gap-4 flex-nowrap">
+                        <div className="flex items-center gap-4 w-full sm:w-auto">
                             <input 
                                 type="range" 
                                 min="0" 
                                 max={slides.length - 1} 
                                 value={currentSlide} 
                                 onChange={(e) => setCurrentSlide(parseInt(e.target.value))}
-                                className="w-32 md:w-48"
+                                className="flex-grow sm:w-32 md:w-48"
                             />
                             <span className="text-sm font-black text-[#ff4d94] font-mono whitespace-nowrap">
-                                SLIDE {currentSlide + 1} / {slides.length}
+                                {currentSlide + 1} / {slides.length}
                             </span>
                         </div>
                     </div>
 
-                    {/* Slide Main Canvas */}
-                    <div className="w-full aspect-video bg-white rounded-[2.5rem] shadow-2xl border border-white overflow-hidden relative slide-container">
-                        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#fff5f7] -skew-x-12 translate-x-1/2"></div>
+                    {/* Main Canvas - 改為靈活高度以適應手機 */}
+                    <div className="w-full min-h-[500px] md:aspect-video bg-white rounded-[2.5rem] shadow-2xl border border-white overflow-hidden relative slide-container">
+                        {/* Background Decor */}
+                        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#fff5f7] -skew-x-12 translate-x-1/2 opacity-50 md:opacity-100"></div>
                         
                         <div 
                             key={`slide-${currentSlide}`}
-                            className="relative z-10 h-full p-16 flex flex-col fade-enter"
+                            className="relative z-10 h-full p-8 md:p-16 flex flex-col fade-enter"
                         >
-                            <div className="mb-10 text-left">
-                                <div className="text-xs font-black text-pink-400 tracking-[0.4em] uppercase mb-1">
+                            {/* Slide Header */}
+                            <div className="mb-8 md:mb-10 text-left">
+                                <div className="text-[10px] font-black text-pink-400 tracking-[0.4em] uppercase mb-1">
                                     {slides[currentSlide].subtitle}
                                 </div>
-                                <h2 className="text-5xl font-black text-slate-800 tracking-tight">
+                                <h2 className="text-3xl md:text-5xl font-black text-slate-800 tracking-tight">
                                     {slides[currentSlide].title}
                                 </h2>
-                                <div className="h-1 w-20 bg-[#ff4d94] mt-4"></div>
+                                <div className="h-1 w-20 bg-[#ff4d94] mt-3 md:mt-4"></div>
                             </div>
 
-                            <div className="flex-grow overflow-hidden">
+                            {/* Slide Body */}
+                            <div className="flex-grow flex flex-col justify-center">
                                 {slides[currentSlide].content}
                             </div>
                         </div>
                     </div>
 
-                    {/* Bottom Controls */}
-                    <div className="flex items-center gap-8 mt-6 pb-4">
+                    {/* Controls */}
+                    <div className="flex items-center gap-4 md:gap-8 mt-8">
                         <button 
                             onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
-                            className="group p-4 rounded-full bg-white border border-pink-100 shadow-lg hover:bg-pink-500 hover:text-white transition-all disabled:opacity-20"
+                            className="p-3 md:p-4 rounded-full bg-white border border-pink-100 shadow-lg hover:bg-pink-500 hover:text-white transition-all disabled:opacity-20"
                             disabled={currentSlide === 0}
-                            title="上一步"
                         >
-                            <i data-lucide="chevron-left" className="w-8 h-8"></i>
+                            <i data-lucide="chevron-left" className="w-6 h-6 md:w-8 md:h-8"></i>
                         </button>
                         
-                        <div className="flex gap-3 px-4">
+                        <div className="flex gap-2 px-2">
                             {slides.map((_, idx) => (
                                 <button 
                                     key={idx}
                                     onClick={() => setCurrentSlide(idx)}
-                                    className={`h-2.5 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-10 bg-[#ff4d94]' : 'w-2.5 bg-pink-200'}`}
+                                    className={`h-2 md:h-2.5 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-8 md:w-10 bg-[#ff4d94]' : 'w-2 md:w-2.5 bg-pink-200'}`}
                                 />
                             ))}
                         </div>
 
                         <button 
                             onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
-                            className="group p-4 rounded-full bg-white border border-pink-100 shadow-lg hover:bg-pink-500 hover:text-white transition-all disabled:opacity-20"
+                            className="p-3 md:p-4 rounded-full bg-white border border-pink-100 shadow-lg hover:bg-pink-500 hover:text-white transition-all disabled:opacity-20"
                             disabled={currentSlide === slides.length - 1}
-                            title="下一步"
                         >
-                            <i data-lucide="chevron-right" className="w-8 h-8"></i>
+                            <i data-lucide="chevron-right" className="w-6 h-6 md:w-8 md:h-8"></i>
                         </button>
                     </div>
                 </div>
