@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N1 助詞辨析教材 - Seekbar 導覽版</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap');
+        body { 
+            font-family: 'Noto Sans TC', 'Inter', sans-serif; 
+            background-color: #f2ede4; 
+            color: #3d3d3d;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 94, 60, 0.1);
+        }
+        .shadow-soft {
+            box-shadow: 0 25px 50px -12px rgba(80, 70, 50, 0.15);
+        }
+        .detail-text { font-size: 1.15rem; line-height: 1.85; }
+        .caption-text { font-size: 1.1rem; font-weight: 700; }
+
+        /* Seekbar 定製樣式 */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 12px;
+            cursor: pointer;
+            background: #d2b48c;
+            border-radius: 6px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: #5d4037;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState(0);
+
+            const sections = [
+                { id: 0, title: "主題 vs 對象", tag: "は VS が", icon: "focus", theme: "bg-[#e8dec9]", accent: "text-[#7c5a3b]" },
+                { id: 1, title: "空間與座標", tag: "に VS で", icon: "map-pin", theme: "bg-[#e2d6c1]", accent: "text-[#6f4e37]" },
+                { id: 2, title: "能力與狀態", tag: "を VS が", icon: "cpu", theme: "bg-[#dacfb7]", accent: "text-[#5d4037]" },
+                { id: 3, title: "目標 vs 方向", tag: "に VS へ", icon: "navigation", theme: "bg-[#e8dfd0]", accent: "text-[#5d4037]" },
+                { id: 4, title: "單向 vs 雙向", tag: "に VS と", icon: "users", theme: "bg-[#e2dcc8]", accent: "text-[#6f4e37]" },
+                { id: 5, title: "持續 vs 期限", tag: "まで VS までに", icon: "clock", theme: "bg-[#d9d0bb]", accent: "text-[#5d4037]" }
+            ];
+
+            const getContent = (id) => {
+                switch(id) {
+                    case 0: return (
+                        <div className="space-y-8 text-left">
+                            <div className="p-6 bg-white/90 rounded-2xl border-l-4 border-[#7c5a3b] shadow-sm">
+                                <h3 className="text-xl font-bold text-[#5d4037] mb-3 flex items-center gap-2"><i data-lucide="eye"></i> 聚光燈效應</h3>
+                                <p className="detail-text"><span className="font-black text-[#a0522d]">は (主題)</span>：這就像是在舞台上打上一道大範圍的聚光燈。重點在「之後」的描述。</p>
+                                <p className="detail-text mt-3"><span className="font-black text-[#b22222]">が (對象)</span>：重點在「之前」的對象。像是用雷射筆精確指著某個「特定人物」。</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="bg-[#fdfbf7] p-6 rounded-xl border border-[#e8dec9]">
+                                    <span className="caption-text text-[#8b5e3c]">情境 A：陳述身分</span>
+                                    <div className="mt-2 text-2xl font-bold text-[#2d2d2d]">私は學生です。</div>
+                                </div>
+                                <div className="bg-[#fdfbf7] p-6 rounded-xl border border-[#e8dec9]">
+                                    <span className="caption-text text-[#b22222]">情境 B：指定某人</span>
+                                    <div className="mt-2 text-2xl font-bold text-[#2d2d2d]">私が學生です。</div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    case 1: return (
+                        <div className="space-y-8 text-left">
+                            <div className="p-6 bg-white/90 rounded-2xl border-l-4 border-[#6f4e37] shadow-sm">
+                                <h3 className="text-xl font-bold text-[#5d4037] mb-3 flex items-center gap-2"><i data-lucide="compass"></i> 定點與動態範圍</h3>
+                                <p className="detail-text"><span className="font-black text-[#8b5e3c]">に (座標點)</span>：像是一顆圖釘，釘在精確的「點」上。常用於存在、目的地。</p>
+                                <p className="detail-text mt-3"><span className="font-black text-[#5d4037]">で (舞台)</span>：像是一個動態的圓圈，代表動作發生的「場域」。</p>
+                            </div>
+                            <div className="bg-white/60 p-6 rounded-2xl border border-[#d2b48c]">
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-5">
+                                        <div className="w-14 h-14 rounded-full bg-[#8b5e3c] flex items-center justify-center text-white font-bold text-xl">に</div>
+                                        <div className="text-2xl font-bold text-[#2d2d2d]">東京<span className="text-[#8b5e3c]">に</span>住む</div>
+                                    </div>
+                                    <div className="flex items-center gap-5">
+                                        <div className="w-14 h-14 rounded-full bg-[#5d4037] flex items-center justify-center text-white font-bold text-xl">で</div>
+                                        <div className="text-2xl font-bold text-[#2d2d2d]">東京<span className="text-[#5d4037]">で</span>働く</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    case 2: return (
+                        <div className="space-y-8 text-left">
+                            <div className="p-6 bg-white/90 rounded-2xl border-l-4 border-[#5d4037] shadow-sm">
+                                <h3 className="text-xl font-bold text-[#5d4037] mb-3 flex items-center gap-2"><i data-lucide="target"></i> 動作對象 vs 內在狀態</h3>
+                                <p className="detail-text"><span className="font-black text-[#8b4513]">を (直接受詞)</span>：手直接伸過去觸碰的具體對象。</p>
+                                <p className="detail-text mt-3"><span className="font-black text-[#a0522d]">が (能力/希望)</span>：內心湧現的感覺，或是具備的技能。</p>
+                            </div>
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="p-6 bg-white/80 rounded-xl border border-[#d2b48c] flex justify-between items-center">
+                                    <div className="text-2xl font-bold text-[#2d2d2d]">パン<span className="text-[#8b4513]">を</span>食べる</div>
+                                    <i data-lucide="shopping-bag" className="text-[#8b4513] opacity-30 w-10 h-10"></i>
+                                </div>
+                                <div className="p-6 bg-white/80 rounded-xl border border-[#d2b48c] flex justify-between items-center">
+                                    <div className="text-2xl font-bold text-[#2d2d2d]">パン<span className="text-[#a0522d]">が</span>食べたい</div>
+                                    <i data-lucide="heart" className="text-[#a0522d] opacity-30 w-10 h-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    case 3: return (
+                        <div className="space-y-8 text-left">
+                            <div className="p-6 bg-white/90 rounded-2xl border-l-4 border-[#8b5e3c] shadow-sm">
+                                <h3 className="text-xl font-bold text-[#5d4037] mb-3 flex items-center gap-2"><i data-lucide="map"></i> 終點 vs 過程</h3>
+                                <p className="detail-text"><span className="font-black text-[#8b5e3c]">に (終點)</span>：強調「抵達的目標」。目標意識極強。</p>
+                                <p className="detail-text mt-3"><span className="font-black text-[#a0522d]">へ (方向)</span>：強調「往哪個方向走」。重點在過程。</p>
+                            </div>
+                            <div className="p-6 bg-[#fdfbf7] rounded-xl border border-[#e8dec9]">
+                                <p className="detail-text font-bold text-[#2d2d2d]">日本<span className="text-[#8b5e3c]">に</span>行く (強調抵達日本)</p>
+                                <p className="detail-text font-bold text-[#2d2d2d] mt-2">日本<span className="text-[#a0522d]">へ</span>行く (強調朝向日本)</p>
+                            </div>
+                        </div>
+                    );
+                    case 4: return (
+                        <div className="space-y-8 text-left">
+                            <div className="p-6 bg-white/90 rounded-2xl border-l-4 border-[#5d4037] shadow-sm">
+                                <h3 className="text-xl font-bold text-[#5d4037] mb-3 flex items-center gap-2"><i data-lucide="user-plus"></i> 動作的流向</h3>
+                                <p className="detail-text"><span className="font-black text-[#8b5e3c]">に (單向)</span>：對著某人。對方是被動接收者。</p>
+                                <p className="detail-text mt-3"><span className="font-black text-[#5d4037]">と (雙向)</span>：兩個人共同進行、對等互動。</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="p-5 bg-white rounded-xl border border-[#e2d6c1]">
+                                    <div className="text-xl font-bold text-[#2d2d2d]">友達<span className="text-[#8b5e3c]">に</span>会う (我去見他)</div>
+                                </div>
+                                <div className="p-5 bg-white rounded-xl border border-[#e2d6c1]">
+                                    <div className="text-xl font-bold text-[#2d2d2d]">友達<span className="text-[#5d4037]">と</span>会う (約好見面)</div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    case 5: return (
+                        <div className="space-y-8 text-left">
+                            <div className="p-6 bg-white/90 rounded-2xl border-l-4 border-[#b22222] shadow-sm">
+                                <h3 className="text-xl font-bold text-[#5d4037] mb-3 flex items-center gap-2"><i data-lucide="hourglass"></i> 時間的精確界定</h3>
+                                <p className="detail-text"><span className="font-black text-[#8b4513]">まで (持續)</span>：直到那時為止都在做。</p>
+                                <p className="detail-text mt-3"><span className="font-black text-[#b22222]">までに (期限)</span>：在那個時間點前完成就好。</p>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="p-5 bg-white rounded-xl border border-[#8b4513]">
+                                    <div className="text-2xl font-bold text-[#2d2d2d]">5時<span className="text-[#8b4513]">まで</span>待つ (持續等待)</div>
+                                </div>
+                                <div className="p-5 bg-white rounded-xl border border-[#b22222]">
+                                    <div className="text-2xl font-bold text-[#2d2d2d]">5時<span className="text-[#b22222]">までに</span>行く (限期抵達)</div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                    default: return null;
+                }
+            }
+
+            useEffect(() => {
+                if (window.lucide) { window.lucide.createIcons(); }
+            }, [activeTab]);
+
+            return (
+                <div className="min-h-screen p-4 md:p-12 flex flex-col items-center">
+                    {/* Header (已更新標題與翻譯) */}
+                    <div className="max-w-2xl w-full flex flex-col md:flex-row items-center justify-between mb-8 gap-4 text-center md:text-left">
+                        <div className="flex items-center gap-4">
+                            <div className="w-14 h-14 bg-[#5d4037] rounded-2xl flex items-center justify-center shadow-xl flex-shrink-0">
+                                <i data-lucide="book-open" className="text-[#f2ede4] w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h1 className="text-2xl font-black tracking-tight text-[#5d4037] uppercase">N1 助詞辨析教材</h1>
+                                <p className="text-xs text-[#8b5e3c] font-mono tracking-[0.3em] uppercase mt-1">N1 Particle Analysis Textbook</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Main UI */}
+                    <div className="max-w-2xl w-full glass-panel rounded-[2.5rem] shadow-soft overflow-hidden border border-white">
+                        
+                        {/* Seekbar Navigation */}
+                        <div className="p-8 bg-[#d2b48c]/10 border-b border-[#d2b48c]/20">
+                            <div className="flex justify-between items-end mb-4">
+                                <div className="flex flex-col text-left">
+                                    <span className="text-xs font-black text-[#8b5e3c] uppercase tracking-widest">目前導覽單元</span>
+                                    <span className="text-xl font-black text-[#5d4037]">{sections[activeTab].title}</span>
+                                </div>
+                                <div className="text-lg font-black text-[#5d4037]/50">
+                                    {activeTab + 1} / {sections.length}
+                                </div>
+                            </div>
+                            <input 
+                                type="range" 
+                                min="0" 
+                                max={sections.length - 1} 
+                                value={activeTab} 
+                                onChange={(e) => setActiveTab(parseInt(e.target.value))}
+                                className="my-4"
+                            />
+                            <div className="flex justify-between px-1">
+                                {sections.map((s, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === activeTab ? 'bg-[#5d4037] scale-150' : 'bg-[#d2b48c]'}`}
+                                    ></div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Content Area */}
+                        <div className={`p-8 md:p-12 transition-all duration-700 min-h-[500px] ${sections[activeTab].theme}`}>
+                            <div className="mb-10 text-left">
+                                <span className="px-5 py-2 bg-white/50 text-[18px] font-black text-[#5d4037] rounded-full tracking-widest border border-white/60 uppercase shadow-sm">
+                                    {sections[activeTab].tag}
+                                </span>
+                                <h2 className={`text-4xl font-black mt-8 tracking-tight italic ${sections[activeTab].accent}`}>
+                                    {sections[activeTab].title}
+                                </h2>
+                            </div>
+                            
+                            <div key={activeTab} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                {getContent(activeTab)}
+                            </div>
+                        </div>
+
+                        {/* Footer Controls */}
+                        <div className="p-8 bg-white/80 border-t border-[#d2b48c]/20 flex justify-between items-center">
+                            <button 
+                                onClick={() => setActiveTab(Math.max(0, activeTab - 1))}
+                                className="p-4 rounded-full border border-[#d2b48c]/40 hover:bg-white disabled:opacity-10 transition-all active:scale-90"
+                                disabled={activeTab === 0}
+                            >
+                                <i data-lucide="chevron-left" className="w-8 h-8 text-[#5d4037]"></i>
+                            </button>
+                            
+                            <div className="hidden md:flex flex-col items-center">
+                                <span className="text-[10px] font-bold text-[#d2b48c] uppercase tracking-widest text-center">Slide the bar above to navigate</span>
+                            </div>
+
+                            <button 
+                                onClick={() => setActiveTab(Math.min(sections.length - 1, activeTab + 1))}
+                                className="p-4 rounded-full bg-[#5d4037] hover:bg-[#3e2b25] disabled:opacity-10 transition-all shadow-lg text-white active:scale-95"
+                                disabled={activeTab === sections.length - 1}
+                            >
+                                <i data-lucide="chevron-right" className="w-8 h-8"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="mt-12 text-center opacity-40">
+                        <p className="text-sm font-bold tracking-[0.2em] uppercase text-[#5d4037]">N1 助詞辨析教材 v3.1</p>
+                        <p className="text-[10px] mt-2 font-mono italic">Tailored for Advanced Learners</p>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
